@@ -2111,6 +2111,13 @@ static void write_debug_report (uint_fast8_t axes)
         }
         write_line(sbuf);
 
+        sprintf(sbuf, "%-15s", "Sense resistor");
+        for(motor = 0; motor < n_motors; motor++) {
+            if(bit_istrue(axes, bit(motor_map[motor].axis)))
+                sprintf(append(sbuf), "%8d", stepper[motor]->get_config(motor)->r_sense);
+        }
+        write_line(sbuf);
+
         sprintf(sbuf, "%-15s", "Set current");
         for(motor = 0; motor < n_motors; motor++) {
             if(bit_istrue(axes, bit(motor_map[motor].axis)))
